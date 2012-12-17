@@ -37,7 +37,6 @@ class DefaultController < ApplicationController
       p row['account_id']
     end
 
-
     render text: "OK", status: 200
 
   end
