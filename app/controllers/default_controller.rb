@@ -12,7 +12,12 @@ class DefaultController < ApplicationController
     puts rows
     p rows
     p rows.class
-    #hash = eval rows
+    if (rows.is_a? String)
+      hash = eval(rows).with_indifferent_access
+      puts hash
+      puts hash.class
+      puts hash[:account_id]
+    end
     p '********************************* iterating hash'
     #puts rows["name"]
     rows.each do |row|
