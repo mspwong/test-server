@@ -25,6 +25,7 @@ class DefaultController < ApplicationController
     end
 
     render text: "OK", status: 200
+    
   end
 
   def post_json
