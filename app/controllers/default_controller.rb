@@ -14,15 +14,18 @@ class DefaultController < ApplicationController
     p rows.class
     if (rows.is_a? String)
       hash = eval(rows).with_indifferent_access
-      puts hash
-      puts hash.class
-      puts hash[:account_id]
+      puts hash.inspect
+      p hash.class
+      p hash[:account_id]
+    else
+      p '********************************* iterating hash'
+      #puts rows["name"]
+      rows.each do |row|
+        p row['account_id']
+      end
     end
-    p '********************************* iterating hash'
-    #puts rows["name"]
-    rows.each do |row|
-      p row['account_id']
-    end
+
+    do_work("processing hash")
 
     render text: "OK", status: 200
     
@@ -43,8 +46,13 @@ class DefaultController < ApplicationController
       p row['account_id']
     end
 
-    render text: "OK", status: 200
+    do_work("processing json")
 
+    render text: "OK", status: 200
+  end
+
+  def do_work(message)
+    PrintWorker.perform_async("#{message}")
   end
 
 end
